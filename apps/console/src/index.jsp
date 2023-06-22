@@ -89,6 +89,17 @@
                         : "";
                 };
 
+                var skipParam = "";
+                const params = new URLSearchParams(window.location.search);
+                if (params.has('skip1')) {
+                    skipParam = "&skip1=true";
+                }
+
+                var orgId = getOrganizationName();
+                var orgIdQueryParam = "";
+                if (orgId != "") {
+                   orgIdQueryParam = "&orgId=" + orgId;
+                }
                 var authConfig = {
                     signInRedirectURL: applicationDomain.replace(/\/+$/, '') + getOrganizationPath() + "/"
                         + "<%= htmlWebpackPlugin.options.basename %>",
@@ -100,7 +111,7 @@
                     storage: "webWorker",
                     enablePKCE: true,
                     endpoints: {
-                        authorizationEndpoint: getApiPath("/t/carbon.super/oauth2/authorize?ut=" + getOrganizationName())
+                        authorizationEndpoint: getApiPath("/t/carbon.super/oauth2/authorize?ut=" + getOrganizationName() + orgIdQueryParam + skipParam)
                     }
                 }
 

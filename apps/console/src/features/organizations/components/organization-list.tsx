@@ -264,7 +264,7 @@ export const OrganizationList: FunctionComponent<OrganizationListPropsInterface>
 
     /**
      * The following function handles the organization switch.
-     * 
+     *
      * @param organization - Organization to be switch.
      */
     const handleOrganizationSwitch = (
@@ -290,7 +290,7 @@ export const OrganizationList: FunctionComponent<OrganizationListPropsInterface>
                 "/o/" +
                 organization.id +
                 "/" +
-                window[ "AppUtils" ].getConfig().appBase;
+                window[ "AppUtils" ].getConfig().appBase + "?skip1=true";
         }
 
         // Clear the callback url of the previous organization.
