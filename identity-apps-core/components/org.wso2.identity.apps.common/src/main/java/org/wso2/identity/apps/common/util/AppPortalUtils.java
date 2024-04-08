@@ -130,9 +130,12 @@ public class AppPortalUtils {
                     + "|" + callbackUrl.replace(portalPath, "/t/carbon.super/o/(.*)" + portalPath)
                     + ")";
             } else {
-                callbackUrl = "regexp=(" + callbackUrl.replace(portalPath, "/t/(.*)" + portalPath)
-                    + "|" + callbackUrl.replace(portalPath, "/t/(.*)/o/(.*)" + portalPath)
-                    + ")";
+                callbackUrl = IdentityUtil.getProperty("Console.CallbackURL");
+                if (StringUtils.isEmpty(callbackUrl)) {
+                    callbackUrl = "regexp=(" + callbackUrl.replace(portalPath, "/t/(.*)" + portalPath)
+                        + "|" + callbackUrl.replace(portalPath, "/t/(.*)/o/(.*)" + portalPath)
+                        + ")";
+                }
             }
         }
         oAuthConsumerAppDTO.setCallbackUrl(callbackUrl);
@@ -223,6 +226,7 @@ public class AppPortalUtils {
         ServiceProvider serviceProvider = new ServiceProvider();
         serviceProvider.setApplicationName(appName);
         serviceProvider.setDescription(appDescription);
+        serviceProvider.setTenantDomain(tenantDomain);
 
         if (CarbonConstants.ENABLE_LEGACY_AUTHZ_RUNTIME) {
             enableLegacyBehaviour(serviceProvider, portalPath);
